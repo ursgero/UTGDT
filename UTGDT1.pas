@@ -8,12 +8,12 @@ uses  SysUtils, Classes, Strutils, ValEdit, FileUtil, windows, LazFileUtils, Laz
 
 type TGDTeinstellungen= Record
 			empfaengerkuerzel, senderkuerzel : string[4];
-			eingangsmodus,ausgangsmodus	 : boolean;
-			extension			    : string[3];
-			austauschpfad			: string[255];
-                        exportpfad                      : string[255];
-			zaehler				    : string[3];
-      geraetekennung    : string[10];
+			eingangsmodus,ausgangsmodus	 	 : boolean;
+			extension			    		 : string[3];
+			austauschpfad					 : string[255];
+            exportpfad             			 : string[255];
+			zaehler				   			 : string[3];
+			geraetekennung    				 : string[10];
    end;
 
                      TGdtRec= record
@@ -70,7 +70,7 @@ type TGDTeinstellungen= Record
 				    id					 : string[80];
 				    tag,monat,jahr,stunde,minute,sekunde : array[1..10] of string[10];
 			end;
-      dbapp     = record
+			dbapp     = record
                                        bilder : array[1..10] of array[0..255] of char;
                                        titel  : array[1..10] of array[0..255] of char;
                                        texte  : array[1..10] of array[0..255] of char;
@@ -324,7 +324,7 @@ implementation
 
 procedure Register;
 begin
-  RegisterComponents('ursgero', [TUgdt]);
+  RegisterComponents('GDT Komponente', [TUgdt]);
 end;
 
 constructor TUgdt.Create(ABesitzer: TComponent);
