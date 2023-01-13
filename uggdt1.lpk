@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="uggdt1"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="..\..\..\units\i386-win32\win32;..\..\..\units\i386-win32\nogui;..\..\..\units\i386-win32;..\..\..\lcl;..\..\..\lcl\include"/>
+        <Libraries Value="..\..\..\units\i386-win32\win32;..\..\..\units\i386-win32\nogui;..\..\..\units\i386-win32;..\..\..\components\lazutils;..\..\..\lcl\widgetset"/>
+        <OtherUnitFiles Value="..\..\..\units\i386-win32\win32;..\..\..\units\i386-win32\nogui;..\..\..\units\i386-win32;..\..\..\lcl;..\..\..\components\lazutils;..\..\..\lcl\widgetset"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="1">
+      <Item1>
+        <Filename Value="UTGDT1.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="UTGDT1"/>
+      </Item1>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="1">
+      <Item1>
+        <PackageName Value="FCL"/>
+      </Item1>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
