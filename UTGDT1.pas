@@ -1,6 +1,11 @@
 unit UTGDT1;
 
+{
 
+*** GDT Komponente für in Lazarus Entwickelte Anwendungen
+*** Geräte Daten Trasfehr
+
+}
 
 interface
 
@@ -71,12 +76,12 @@ type TGDTeinstellungen= Record
 				    tag,monat,jahr,stunde,minute,sekunde : array[1..10] of string[10];
 			end;
 			dbapp     = record
-                                       bilder : array[1..10] of array[0..255] of char;
-                                       titel  : array[1..10] of array[0..255] of char;
-                                       texte  : array[1..10] of array[0..255] of char;
-                                       id     : array[0..80] of char;
-				    tag,monat,jahr,stunde,minute,sekunde : array[1..10] of array[0..10] of char;
-                end;
+                           bilder : array[1..10] of array[0..255] of char;
+                           titel  : array[1..10] of array[0..255] of char;
+                           texte  : array[1..10] of array[0..255] of char;
+                           id     : array[0..80] of char;
+							tag,monat,jahr,stunde,minute,sekunde : array[1..10] of array[0..10] of char;
+						end;
 
 type
   TUgdt = class(TComponent)
@@ -448,22 +453,19 @@ Begin
        pbuffer:=allocmem(filesize(vollername)+10);
 
        blockread(gdtdatei,pbuffer^,filesize(vollername),dateilaenge);
-{     new(buffer);}
+
        buffer:=pbuffer;
-{     writeln(buffer); }
-//         system.DefaultAnsi2WideMove(buffer,s,length(buffer));
+
            s:=buffer;
          result:=(buffer);
-//         system.DefaultWide2AnsiMove(s,result,length(s));
-//       system.DefaultUnicode2AnsiMove(buffer,result,length(buffer));
-//       result:=buffer;
+
        freemem(pbuffer,filesize(vollername)+10);
-//       writeln(dateilaenge);
+
        close(gdtdatei);
-       DeleteFileUTF8(intern.Gdt.austauschpfad+'\'+dateiname); { *Converted from DeleteFile*  }
+       DeleteFileUTF8(intern.Gdt.austauschpfad+'\'+dateiname); 
 
      end;
-{     delfile(intern.Gdt.austauschpfad+'\'+dateiname); }
+
 end;
 
 function TUgdt.cvascii(s: pchar): string;
@@ -472,7 +474,7 @@ var ci,offset: integer;
     rs: string;
 
 Begin
-//     rs:=string(s);
+
      ci:=0;
      offset:=0;
      while ci<length(s) do Begin
@@ -544,7 +546,7 @@ Function TUgdt.gdtzeile(var daten: string): Tgdtrec;
 var temp: string;
     l: integer;
 begin
-     {writeln(copy(daten,1,3),' ',daten);}
+
      l:=strtoint(copy(daten,1,3));
      gdtzeile.laenge:=l;
      temp:=copy(daten,1,l);
@@ -573,7 +575,6 @@ Begin
 
            for i:=1 to 58 do
                if zeile.kennung=satzkennung.index[i]^ then Begin
-//                system.DefaultUnicode2AnsiMove(zeile.wert,s,length(zeile.wert));
                   intern.satzdaten[i]:=zeile.wert;
                   meldungen.Add('Gefunden: '+FeldBeschreibung[i]+' = '+zeile.wert);
                   f:=true;
@@ -585,7 +586,7 @@ Begin
                meldungen.Add(inttostr(zeile.laenge));
                meldungen.Add(zeile.kennung);
                meldungen.Add(zeile.wert);
-//              halt(1);
+
            end;
 
            if not(f) then begin
@@ -593,10 +594,10 @@ Begin
               meldungen.Add(inttostr(zeile.laenge));
               meldungen.Add(zeile.kennung);
               meldungen.Add(zeile.wert);
-//              halt(1);
+
            end;
      end;
-//     meldungen.SaveToFile('GDT-IMP.LOG');
+
 end;
 
 
@@ -679,11 +680,10 @@ begin
      end;
 
      meldungen.Clear;
-//     form1.Label3.Caption:=dateiname;
      assignfile(datei,dateiname);
      rewrite(datei);
      if (ioresult<>0) then Begin
-//        messagebox(pchar('IO fehler '+ioresult,'Fehler',MB_OK);
+
         exit;
      end;
      for i:=0 to gdtindex-1 do Begin
@@ -696,11 +696,6 @@ begin
          write(datei,lfc);
      end;
      closefile(datei);
-//     assignfile(edat,'gdtinst\'+dateiname+'.data');
-//     assignfile(edat,dateiname);
-//     rewrite(edat);
-//     write(edat,intern.gdt);
-//     closefile(edat);
 end;
 
 procedure TUgdt.exportgdt(daten: Tgdteinstellungen; werte: TValueListEditor; Startsatz: string);
@@ -708,7 +703,6 @@ var ci: integer;
     gdtl: longint;
     datenzeilen,kommentarzeilen: TStringList;
 Begin
-//     assignfile(gdtdatei,intern.Gdt.austauschpfad+'\'+dateiname);
       datenzeilen:=TStringList.create;
       kommentarzeilen:=TStringlist.create;
       intern.Gdt:=daten;
@@ -731,10 +725,9 @@ Begin
       if werte.Values['GdtIdSender']<>'' then gengdt(satzkennung.GdtIdSender,werte.Values['GdtIdSender'],true);
       if werte.Values['text']<>'' then Begin
       datenzeilen.CommaText:=werte.Values['text'];
-//      kommentarzeilen.CommaText:=werte.Values['kommentar'];
         for ci:=0 to datenzeilen.Count-1 do Begin
             gengdt(satzkennung.Ergebnistext,datenzeilen[ci],true);
-//        gengdt(satzkennung.Ergebnistext,kommentarzeilen[ci],true);
+
           end;
       end;
       ci:=1;
@@ -742,7 +735,6 @@ Begin
           gengdt(satzkennung.TestIdent,werte.Values['ident'+inttostr(ci)],true);
           gengdt(satzkennung.ErgebnisWert,werte.Values['werte'+inttostr(ci)],true);
           inc(ci);
-//          gengdt(satzkennung.ErgebnisWert,werte.Values['werte'+inttostr(ci)],true);
       end;
       if werte.Values['DateiarchivKenner']<>'' then gengdt(satzkennung.DateiarchivKenner,werte.Values['DateiarchivKenner'],true);
       if werte.Values['Dateiformat']<>'' then gengdt(satzkennung.Dateiformat,werte.Values['Dateiformat'],true);
