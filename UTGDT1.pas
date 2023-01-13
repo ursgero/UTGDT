@@ -169,7 +169,7 @@ const kennzeichnung_fuer_edv = 'GDT-D-10';
 				  NormalwertobereGrenze		 : 56;
 				  Anmerkung			 : 57;
 				  Signatur			 : 58);
-                                                                    
+
    satzkennung		     : Tsatzkennungen = (
 				  Startsatz			 : '8000' ;
 				  StammdatenAnfordern		 : '6300' ;
@@ -324,7 +324,7 @@ implementation
 
 procedure Register;
 begin
-  RegisterComponents('Urs Gerodetti', [TUgdt]);
+  RegisterComponents('ursgero', [TUgdt]);
 end;
 
 constructor TUgdt.Create(ABesitzer: TComponent);
@@ -613,7 +613,7 @@ Begin
             if length(a)=0 then Begin
                loescheleer:='';
                exit;
-            end;            
+            end;
      end;
      loescheleer:=a;
 end;
@@ -621,7 +621,7 @@ end;
 Var igdtbuffer: array[0..255] of array[1..255] of char;
     gdtlen    : array[0..255] of integer;
     gdtindex  : integer;
-    
+
 procedure TUgdt.gengdt(a,b: string; append: boolean);
 var i,u: integer;
     l,d: string;
@@ -630,7 +630,7 @@ Begin
     if a='8000' then begin
        for i:=0 to 255 do for u:=1 to 255 do
            igdtbuffer[i,u]:=' ';
-           
+
        gdtindex:=0;
     end;
     if a='8100' then begin
@@ -644,10 +644,10 @@ Begin
     if a='8100' then begin
         for i:=1 to length(l) do
             igdtbuffer[2][i]:=l[i];
-        gdtlen[2]:=length(d)+3;            
+        gdtlen[2]:=length(d)+3;
     end else Begin
-        for i:=1 to length(l) do    
-            igdtbuffer[gdtindex][i]:=l[i];  
+        for i:=1 to length(l) do
+            igdtbuffer[gdtindex][i]:=l[i];
         gdtlen[gdtindex]:=length(d)+3;
     end;
     if append then gdtindex:=gdtindex+1;
